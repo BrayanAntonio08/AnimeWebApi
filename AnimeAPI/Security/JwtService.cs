@@ -13,6 +13,15 @@ namespace AnimeAPI.Security
             _secret = configuration["Jwt:Secret"];
         }
 
+        /// <summary>
+        /// Generates a JSON Web Token (JWT) for the given user, containing user information and roles.
+        /// </summary>
+        /// <param name="user">The user for whom the token is generated.</param>
+        /// <returns>A JWT token string.</returns>
+        /// <remarks>
+        /// This method generates a JWT token containing the user's identifier, username, and role.
+        /// The token expires after three hours.
+        /// </remarks>
         public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -29,7 +38,7 @@ namespace AnimeAPI.Security
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

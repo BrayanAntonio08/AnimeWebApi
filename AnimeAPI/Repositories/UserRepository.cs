@@ -72,10 +72,11 @@ namespace AnimeAPI.Repositories
         }
 
         /// <summary>
-        /// Function made by ChatGPT to encrypt the given string by SHA256 algorithm
+        /// Function made by ChatGPT
+        /// Computes the SHA256 hash of the provided string using the SHA256 algorithm.
         /// </summary>
-        /// <param name="rawData"></param>
-        /// <returns></returns>
+        /// <param name="rawData">The string to be hashed.</param>
+        /// <returns>The SHA256 hash of the input string.</returns>
         public string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256 object

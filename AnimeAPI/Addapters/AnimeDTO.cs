@@ -3,6 +3,10 @@ using AnimeAPI.Models;
 
 namespace AnimeAPI.Addapters
 {
+    /// <summary>
+    /// The Anime DTO is just a simple object with the atributes of an anime, and in this case
+    /// to avoid complexity the adapter functions are integrated as static methods in this class
+    /// </summary>
     public class AnimeDTO
     {
         public int Id { get; set; }

@@ -25,6 +25,19 @@ namespace AnimeAPI.Controllers
             _jwtService = service;
         }
 
+        /// <summary>
+        /// Registers a new user.
+        /// </summary>
+        /// <param name="userDTO">The user data transfer object containing user details.</param>
+        /// <returns>
+        /// An <see cref="IActionResult"/> containing:
+        /// - <see cref="BadRequestObjectResult"/> if the userDTO is null or if an invalid admin code is provided for admin registration.
+        /// - <see cref="OkObjectResult"/> with the created <see cref="UserDTO"/> object if the user is successfully registered.
+        /// - <see cref="BadRequestObjectResult"/> with the exception message if an exception occurs during user creation.
+        /// </returns>
+        /// <response code="400">If the userDTO is null or if an invalid admin code is provided for admin registration.</response>
+        /// <response code="200">If the user is successfully registered.</response>
+        /// <response code="400">If an exception occurs during user creation.</response>
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> CreateUser([FromBody]UserDTO userDTO)
@@ -54,6 +67,22 @@ namespace AnimeAPI.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Authenticates a user and generates a JWT token.
+        /// </summary>
+        /// <param name="dto">The user data transfer object containing login details.</param>
+        /// <returns>
+        /// An <see cref="IActionResult"/> containing:
+        /// - <see cref="BadRequestObjectResult"/> if the dto is null.
+        /// - <see cref="OkObjectResult"/> with a success message and the JWT token if login is successful.
+        /// - <see cref="OkObjectResult"/> with a failure message indicating incorrect credentials if login fails.
+        /// - <see cref="BadRequestObjectResult"/> with the exception message if an exception occurs during login.
+        /// </returns>
+        /// <response code="400">If the dto is null.</response>
+        /// <response code="200">If login is successful, with a success message and the JWT token.</response>
+        /// <response code="200">If login fails, with a failure message indicating incorrect credentials.</response>
+        /// <response code="400">If an exception occurs during login.</response>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserDTO dto)
@@ -83,6 +112,16 @@ namespace AnimeAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Checks if the authenticated user has an admin role.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IActionResult"/> containing:
+        /// - <see cref="BadRequestObjectResult"/> if the role claim is not provided in authentication.
+        /// - <see cref="OkObjectResult"/> with a boolean value indicating whether the user has an admin role.
+        /// </returns>
+        /// <response code="400">If the role claim is not provided in authentication.</response>
+        /// <response code="200">If the check is successful, with a boolean value indicating the admin role status.</response>
         [HttpGet("isAdmin")]
         [Authorize]
         public async Task<IActionResult> IsAdminRole()
